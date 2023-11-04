@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 from django.utils.text import slugify
 from django.db.models.signals import pre_save
 #
@@ -7,14 +8,17 @@ from django.db.models.signals import pre_save
 class Event(models.Model):
 	event_name = models.CharField(max_length=100)
 	event_desc = models.TextField()
-#Not sure if this is needed yet	date_posted = models.DateTimeField(default=timezone.now)
+    #Not sure if this is needed yet	date_posted = models.DateTimeField(default=timezone.now)
 	start_date = models.DateTimeField(default=timezone.now)
 	end_date   = models.DateTimeField(default=timezone.now)
 	slug = models.SlugField(max_length=100,unique=True)
-#
+	
 	def __str__(self):
 		return self.event_name
-#
+
+	def get_absolute_url(self):
+		return reverse('event-detail', args=[str(self.id)])
+
 def unique_slug_generator(model_instance, event_name, slug_field):
 	slug = slugify(event_name)
 	model_class = model_instance.__class__

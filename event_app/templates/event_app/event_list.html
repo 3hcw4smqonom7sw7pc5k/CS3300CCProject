@@ -1,0 +1,16 @@
+{% extends 'event_app/base_template.html' %}
+
+{% block content %}
+<h1>Event List</h1>
+{% if event_list %}
+<ul>
+{% for event in event_list %}
+<li>
+<a href="{{ event.get_absolute_url }}">{{ event.event_name }}</a>
+</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>There are no events created or scheduled.</p>
+{% endif %}
+{% endblock %}
