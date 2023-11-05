@@ -7,9 +7,9 @@
 {% if event_list %}
 <ul>
 {% for event in event_list %}
-<li>
-<p>Event: {{ event.event_name }}</p>
-<a class="btn btn-success" href="{{ event.get_absolute_url }}" role="button">View</a>
+<li style="font-size:24px">
+<a href="{{ event.get_absolute_url }}">Event: {{ event.event_name }}</a>
+<a class="btn btn-primary" href="{{ event.get_absolute_url }}" role="button">View</a>
 <p></p>
 </li>
 {% endfor %}
