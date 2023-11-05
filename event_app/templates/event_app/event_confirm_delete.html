@@ -1,0 +1,15 @@
+<!-- inherit from base.html -->
+{% extends 'event_app/base_template.html' %}
+
+<!-- Replace block content in base_template.html -->
+{% block content %}
+
+<h1>Please confirm deleting this item?</h1>
+
+<form action="" method="POST">
+{% csrf_token %}
+<a class="btn btn-primary" href="{% url 'event-detail' event.id %}">Cancel</a>
+<button class="btn btn-danger" type="submit">Yes</button>
+</form>
+
+{% endblock %}
