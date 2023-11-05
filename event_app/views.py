@@ -24,3 +24,12 @@ class EventListView(ListView):
 	model = Event
 class EventDetailView(DetailView):
 	model = Event
+def EventUpdate(request, pk):
+	event = Event.objects.get(pk=pk)
+	if request.method == 'POST':
+		form = EventForm(request.POST, instance=event)
+		form.save()
+		return redirect('event-detail', pk=pk)
+	else:
+		form = EventForm(instance=event)
+	return render(request, "event_app/event_form.html", {'form': form})
