@@ -33,3 +33,10 @@ def EventUpdate(request, pk):
 	else:
 		form = EventForm(instance=event)
 	return render(request, "event_app/event_form.html", {'form': form})
+def EventDelete(request, pk):
+    event = Event.objects.get(pk=pk)
+    if request.method == 'POST':
+        event.delete()
+        return redirect('events')
+    else:
+        return render(request, 'event_app/event_confirm_delete.html', {'event':event})

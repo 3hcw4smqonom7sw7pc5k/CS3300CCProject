@@ -8,4 +8,5 @@
 <p><strong>Ends:</strong> {{ event.end_date }}</p>
 
 <a class="btn btn-primary" href="{{event.get_absolute_url}}/update" role="button">Edit</a>
+<a class="btn btn-danger" href="{{event.get_absolute_url}}/delete" role="button">Delete</a>
 {% endblock %}
