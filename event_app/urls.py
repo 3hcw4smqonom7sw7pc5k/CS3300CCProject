@@ -1,7 +1,11 @@
 from django.urls import path
 from . import views
+from django.conf.urls import include
 #
 urlpatterns = [
+		#user accounts
+		path('accounts/', include('django.contrib.auth.urls')),
+		path('accounts/register/', views.registerPage, name='register_page'),
 		path('', views.index, name='index'),
 		path('events/', views.EventListView.as_view(), name= 'events'),
 		path('event/<int:pk>', views.EventDetailView.as_view(), name= 'event-detail'),
