@@ -17,8 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+#20231128
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #connect path to event_app urls
-    path('', include('event_app.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('', include('event_app.urls'))
 ]

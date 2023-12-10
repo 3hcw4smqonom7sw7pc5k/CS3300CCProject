@@ -1,3 +1,4 @@
+# I know there are duplicate imports below, however it appears to be better to ensure functionality at this point for time
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -10,10 +11,17 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
 from .decorators import allowed_users
 from django.contrib.auth.mixins import LoginRequiredMixin
-#https://www.w3schools.com/django/django_add_record.php
+#20231128 - even if duplicates, don't want to miss anything here
+from django.contrib.auth import logout
+
 # Create your views here.
 def index(request):
-	return render( request, 'event_app/index.html')
+	return render(request, 'event_app/index.html')
+
+#20231128
+def logout_view(request):
+    logout(request)
+    return redirect("/")
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['editor_role'])
@@ -72,3 +80,6 @@ def registerPage(request):
             
     context={'form':form}
     return render(request, 'registration/register.html', context)
+
+###Begin Django Google Login Views Importing
+##

@@ -30,6 +30,9 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+#20231128
+SITE_ID=2
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,13 +40,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'event_app',
-    'bootstrap5',
+    "event_app",
+    "bootstrap5",
+#20231128
+    "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google"
 ]
-# Add support for authenticating users
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-]
+
+SOCIALACCOUNT_PROVIDERS = {
+    "google": {
+        "SCOPE": [
+            "profile",
+            "email"
+        ],
+        "AUTH_PARAMS": {"access_type": "online"}
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #20231128, raised ImproperlyConfigured, added
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'django_project.urls'
@@ -133,4 +150,20 @@ MEDIA_URL = '/images/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = '/events/'
+# Add support for authenticating users
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+#20231128
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+#20231128
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+#DJANGO_GOOGLE_OAUTH2_CLIENT_ID = '263644375587-6f5c44p7unkkgtbmcrn355g6irm4freb.apps.googleusercontent.com'
+#DJANGO_GOOGLE_OAUTH2_CLIENT_SECRET = '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'
+#DJANGO_GOOGLE_OAUTH2_PROJECT_ID = 'civic-rhythm-406500'
+#GOOGLE_OAUTH2_CLIENT_ID = env.str("DJANGO_GOOGLE_OAUTH2_CLIENT_ID", default="263644375587-6f5c44p7unkkgtbmcrn355g6irm4freb.apps.googleusercontent.com")
+#GOOGLE_OAUTH2_CLIENT_SECRET = env.str("DJANGO_GOOGLE_OAUTH2_CLIENT_SECRET", default="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")
+#GOOGLE_OAUTH2_PROJECT_ID = env.str("DJANGO_GOOGLE_OAUTH2_PROJECT_ID", default="civic-rhythm-406500")
